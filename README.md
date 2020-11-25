@@ -31,4 +31,17 @@ Could you elaborate a it on this?  I'm interested to learn in what situation mem
 
 
 ```
+http://xiaqunfeng.cc/2017/05/11/cpu-top/
+
+1. 为Ceph进程预留足够多的CPU和内存资源，防止影响性能或产生OOM。尤其是高性能环境中并不能完全满足Ceph进程的开销，在高性能场景（全SSD）下，每个OSD进程可能需要高达6GHz的CPU和4GB以上的内存。
+
+单个 nvme ssd osd 分配 2个cpu 6g 内存
+
+缓存盘osd 分配 1个cpu 1g 内存
+
+
+2. 执行 cpu-topology.sh
+保证osd调用到同一个core上的概率最小 
+Logical processor只是OS内部看到的，实际上两个Processor还是位于同一个Core上，所以频繁的调度仍可能导致资源竞争，影响性能。
+
 
